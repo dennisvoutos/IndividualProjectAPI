@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.prefs.PreferenceChangeListener;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("recipes")
 public class RecipeController {
     @Autowired
