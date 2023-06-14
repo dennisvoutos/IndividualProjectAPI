@@ -1,0 +1,3 @@
+# Boolean UK final project
+
+## This repo contains the API for the final 2-week project for the Java full-stack developer course at Boolean UK. For this project i chose to create a simple blog-type application where you can log in/sign up and post recipes, search for recipes by title, ingredient and more. The reason i chose to make something like this is because i love cooking and i could use my personal recipe application. Also, other ideas that i had included using APIs that belonged to other organisations i.e. spotify's API.
