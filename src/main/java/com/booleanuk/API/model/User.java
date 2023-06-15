@@ -1,5 +1,6 @@
 package com.booleanuk.API.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "creator",fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("creator")
     private List<Recipe> recipes;
     public User() {
     }
@@ -50,5 +52,9 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 }

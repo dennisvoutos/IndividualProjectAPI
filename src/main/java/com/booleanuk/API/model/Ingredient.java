@@ -15,7 +15,7 @@ public class Ingredient {
     private int quantity;
     @Column(name = "type_of_quantity")
     private String typeOfQuantity;
-    @ManyToMany
+    @ManyToMany(mappedBy = "ingredients")
     private List<Recipe> recipes;
 
     public Ingredient() {
@@ -58,4 +58,5 @@ public class Ingredient {
     public List<Recipe> getRecipes() {
         return recipes;
     }
+
 }

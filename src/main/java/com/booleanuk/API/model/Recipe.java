@@ -1,5 +1,6 @@
 package com.booleanuk.API.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,10 +13,17 @@ public class Recipe {
     private int id;
     private String title;
     private String description;
-    @ManyToMany
-    @JoinColumn
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinColumn(name = "ingredients", referencedColumnName = "id")
     private List<Ingredient> ingredients;
 
+    @ManyToOne
+    @JoinColumn(name = "creator", referencedColumnName = "id")
+    @JsonIgnoreProperties("recipes")
+    private User creator;
+
+
+    
     public Recipe(String title, String description) {
         this.title = title;
         this.description = description;
@@ -47,4 +55,9 @@ public class Recipe {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public User getCreator() {
+        return creator;
+    }
+
 }
