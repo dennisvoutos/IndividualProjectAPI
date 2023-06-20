@@ -60,4 +60,7 @@ public class Recipe {
         return creator;
     }
 
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 }

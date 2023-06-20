@@ -30,15 +30,19 @@ public class RecipeController {
         return this.recipeRepository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-    public record RecipeRequest(String title, String description, List<Ingredient> ingredients, int userId){}
+    public record RecipeRequest(String title, String description, Ingredient[] ingredients, int userId){}
     @PostMapping
     public Recipe createRecipe(@RequestBody RecipeRequest recipe){
+        System.out.println(recipe.userId +"\n"+recipe.title);
         User creator = this.userRepository.findById(recipe.userId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found when creating recipe" ));
         Recipe added = new Recipe(recipe.title, recipe.description);
-        for(Ingredient ingredient : recipe.ingredients){
-            added.getIngredients().add(ingredient);
+        if(recipe.ingredients!= null) {
+            for (Ingredient ingredient : recipe.ingredients) {
+                added.getIngredients().add(ingredient);
+            }
         }
+        added.setCreator(creator);
         creator.getRecipes().add(added);
         return this.recipeRepository.save(added);
     }

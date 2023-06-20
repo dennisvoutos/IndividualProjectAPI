@@ -25,12 +25,23 @@ public class UserController {
         return this.userRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    //this is the signup essentially
     @PostMapping
     public User createUser(@RequestBody User user){
         if(user.getEmail() == null || user.getPassword() == null || user.getUsername() == null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Body of user is not right");
         }
         return this.userRepository.save(user);
+    }
+    @PostMapping("/login")
+    public User loginUser(@RequestBody User prompt){
+        System.out.println(prompt.getEmail());
+        List<User> users= this.userRepository.findAll().stream().filter((user)->user.getEmail().equalsIgnoreCase(prompt.getEmail()) && user.getPassword().equalsIgnoreCase(prompt.getPassword())).toList();
+        if(users.size()==0){
+            return null;
+        }else{
+            return users.get(0);
+        }
     }
     @DeleteMapping("/{id}")
     public User deleteUser(@PathVariable int id){
