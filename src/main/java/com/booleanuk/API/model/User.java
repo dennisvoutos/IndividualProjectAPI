@@ -3,6 +3,7 @@ package com.booleanuk.API.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,7 @@ public class User {
     }
 
     public User(String username, String password, String email) {
+        this.recipes = new ArrayList<>();
         this.username = username;
         this.password = password;
         this.email = email;

@@ -39,7 +39,9 @@ public class RecipeController {
         Recipe added = new Recipe(recipe.title, recipe.description);
         if(recipe.ingredients!= null) {
             for (Ingredient ingredient : recipe.ingredients) {
+                ingredient.setUp();
                 added.getIngredients().add(ingredient);
+                ingredient.getRecipes().add(added);
             }
         }
         added.setCreator(creator);

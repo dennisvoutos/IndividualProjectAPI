@@ -2,6 +2,7 @@ package com.booleanuk.API.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ public class Ingredient {
     }
 
     public Ingredient(String name, int quantity, String typeOfQuantity) {
+        this.recipes = new ArrayList<>();
         this.name = name;
         this.quantity = quantity;
         this.typeOfQuantity = typeOfQuantity;
@@ -57,6 +59,9 @@ public class Ingredient {
 
     public List<Recipe> getRecipes() {
         return recipes;
+    }
+    public void setUp(){
+        this.recipes = new ArrayList<>();
     }
 
 }

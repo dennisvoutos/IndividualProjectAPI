@@ -3,6 +3,7 @@ package com.booleanuk.API.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,7 @@ public class Recipe {
     private String description;
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinColumn(name = "ingredients", referencedColumnName = "id")
+    @JsonIgnoreProperties("recipes")
     private List<Ingredient> ingredients;
 
     @ManyToOne
@@ -25,6 +27,7 @@ public class Recipe {
 
     
     public Recipe(String title, String description) {
+        this.ingredients = new ArrayList<>();
         this.title = title;
         this.description = description;
     }
@@ -62,5 +65,8 @@ public class Recipe {
 
     public void setCreator(User creator) {
         this.creator = creator;
+    }
+    public void addIngredient(Ingredient ingredient){
+        this.ingredients.add(ingredient);
     }
 }
