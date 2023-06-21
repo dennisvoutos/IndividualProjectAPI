@@ -32,6 +32,23 @@ public class RecipeController {
         return this.recipeRepository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/search/{prompt}")
+    public List<Recipe> searchForRecipe(@PathVariable String prompt){
+        //the prompt will check inside both ingredients and recipe titles for a match.
+        List<Recipe> result = new ArrayList<>();
+        for(Recipe recipe:this.recipeRepository.findAll()){
+            if(recipe.getTitle().toLowerCase().contains(prompt.toLowerCase())){
+                result.add(recipe);
+            }else {
+                for(Ingredient ingredient:recipe.getIngredients()){
+                    if(ingredient.getName().toLowerCase().contains(prompt.toLowerCase())){
+                        result.add(recipe);
+                    }
+                }
+            }
+        }
+        return result;
+    }
     public record RecipeRequest(String title, String description, Ingredient[] ingredients, int userId){}
     @PostMapping
     public Recipe createRecipe(@RequestBody RecipeRequest recipe){
