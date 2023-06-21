@@ -69,4 +69,8 @@ public class Recipe {
     public void addIngredient(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

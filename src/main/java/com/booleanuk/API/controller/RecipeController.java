@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.prefs.PreferenceChangeListener;
 
@@ -55,10 +57,12 @@ public class RecipeController {
         return deleted;
     }
     @PutMapping("/{id}")
-    public Recipe updateRecipe(@PathVariable int id, @RequestBody Recipe recipe){
+    public Recipe updateRecipe(@PathVariable int id, @RequestBody RecipeRequest recipe){
         Recipe updated = this.getRecipeById(id);
-        updated.setDescription(recipe.getDescription());
-        updated.setTitle(recipe.getTitle());
+        updated.setDescription(recipe.description);
+        updated.setTitle(recipe.title);
+        ArrayList<Ingredient> newIngredients = new ArrayList<>(Arrays.asList(recipe.ingredients));
+        updated.setIngredients(newIngredients);
         return this.recipeRepository.save(updated);
     }
 }
